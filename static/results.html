@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Easy-Go - Quiz Results">
+    <title>Quiz Results - Easy-Go</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/design-system.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body data-theme="light">
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a href="/" class="navbar-brand">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Easy-Go</span>
+            </a>
+            <ul class="navbar-nav">
+                <li><a href="/" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/settings.html" class="nav-link"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="/manage-files.html" class="nav-link"><i class="fas fa-folder"></i> My Files</a></li>
+                <li><a href="/analytics.html" class="nav-link"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                <li><a href="/boost.html" class="nav-link"><i class="fas fa-bolt"></i> Boost</a></li>
+                <li>
+                    <button id="themeToggle" class="btn btn-ghost btn-sm">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            
+            <!-- Results Page -->
+            <div class="results-container">
+                <h2 class="page-title">Quiz Complete!</h2>
+                
+                <div class="results-score">
+                    <div class="score-display" id="scorePercentage">0%</div>
+                    <div class="score-label">Accuracy</div>
+                </div>
+
+                <div class="results-stats">
+                    <div class="card result-stat">
+                        <div class="result-value correct" id="correctCount">0</div>
+                        <div class="result-label">Correct</div>
+                    </div>
+                    <div class="card result-stat">
+                        <div class="result-value wrong" id="wrongCount">0</div>
+                        <div class="result-label">Wrong</div>
+                    </div>
+                    <div class="card result-stat">
+                        <div class="result-value" id="missedCount">0</div>
+                        <div class="result-label">Missed</div>
+                    </div>
+                    <div class="card result-stat">
+                        <div class="result-value" id="totalResultQuestions">0</div>
+                        <div class="result-label">Total</div>
+                    </div>
+                </div>
+
+                <!-- Topics Covered -->
+                <div class="card card-lg mt-4">
+                    <h3 class="mb-2">
+                        <i class="fas fa-book"></i> Topics Covered
+                    </h3>
+                    <div id="topicsCovered"></div>
+                </div>
+
+                <!-- Wrong Questions Section -->
+                <div class="card card-lg mt-4" id="wrongQuestionsSection" style="display: none;">
+                    <h3 class="mb-2">
+                        <i class="fas fa-exclamation-triangle" style="color: var(--error);"></i> 
+                        Questions to Review
+                    </h3>
+                    <p class="text-secondary mb-3">Practice these questions to strengthen your weak areas</p>
+                    
+                    <div id="wrongQuestionsList"></div>
+                    
+                    <div class="mt-3" style="display: flex; gap: 12px; flex-wrap: wrap;">
+                        <button onclick="retryWrongQuestions()" class="btn btn-primary">
+                            <i class="fas fa-redo"></i>
+                            <span>Retry Wrong Questions</span>
+                        </button>
+                        <a href="/boost.html" class="btn btn-secondary">
+                            <i class="fas fa-bolt"></i>
+                            <span>Go to Boost</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="results-actions">
+                    <a href="/pack-selection.html" class="btn btn-primary btn-lg">
+                        <i class="fas fa-redo"></i>
+                        <span>Take Another Quiz</span>
+                    </a>
+                    <a href="/analytics.html" class="btn btn-secondary btn-lg">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>View Analytics</span>
+                    </a>
+                    <a href="/" class="btn btn-outline btn-lg">
+                        <i class="fas fa-home"></i>
+                        <span>Back to Home</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="/js/storage.js"></script>
+    <script src="/js/results.js"></script>
+</body>
+</html>

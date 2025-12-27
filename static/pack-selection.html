@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Easy-Go - Configure your quiz">
+    <title>Configure Quiz - Easy-Go</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/design-system.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body data-theme="light">
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a href="/" class="navbar-brand">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Easy-Go</span>
+            </a>
+            <ul class="navbar-nav">
+                <li><a href="/" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/settings.html" class="nav-link"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="/manage-files.html" class="nav-link"><i class="fas fa-folder"></i> My Files</a></li>
+                <li><a href="/analytics.html" class="nav-link"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                <li><a href="/boost.html" class="nav-link"><i class="fas fa-bolt"></i> Boost</a></li>
+                <li>
+                    <button id="themeToggle" class="btn btn-ghost btn-sm">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            
+            <!-- Quiz Setup Page -->
+            <div class="setup-container">
+                <h2 class="page-title">Configure Your Quiz</h2>
+                
+                <!-- Step 1: Custom Files Selection -->
+                <div class="card card-lg mb-3">
+                    <h3 class="mb-3">
+                        <span class="step-number">1</span>
+                        Select Question Pack
+                    </h3>
+                    
+                    <div id="customFilesList">
+                        <!-- Custom files will be inserted here -->
+                    </div>
+                </div>
+
+                <!-- Step 2: Quiz Options -->
+                <div class="card card-lg mb-3">
+                    <h3 class="mb-3">
+                        <span class="step-number" id="optionsStepNumber">2</span>
+                        Quiz Options
+                    </h3>
+                    
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-list-ol"></i>
+                            Number of Questions
+                        </label>
+                        <input type="number" id="questionCount" class="form-control" value="10" min="1" max="300">
+                        <small class="text-secondary" id="maxQuestionsHint">Maximum available: 300</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="shuffleQuestions" checked>
+                            <span>
+                                <i class="fas fa-random"></i>
+                                Shuffle Questions
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="setup-actions">
+                    <a href="/" class="btn btn-outline">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Back</span>
+                    </a>
+                    <button class="btn btn-primary btn-lg" onclick="startQuizNew()">
+                        <i class="fas fa-play"></i>
+                        <span>Begin Quiz</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="/js/storage.js"></script>
+    <script src="/js/quiz.js"></script>
+    <script src="/js/pack-selection.js"></script>
+</body>
+</html>

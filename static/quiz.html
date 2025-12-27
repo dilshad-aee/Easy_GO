@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Easy-Go - Take your quiz">
+    <title>Quiz - Easy-Go</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/design-system.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body data-theme="light">
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a href="/" class="navbar-brand">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Easy-Go</span>
+            </a>
+            <ul class="navbar-nav">
+                <li><a href="/" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/settings.html" class="nav-link"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="/manage-files.html" class="nav-link"><i class="fas fa-folder"></i> My Files</a></li>
+                <li><a href="/analytics.html" class="nav-link"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                <li><a href="/boost.html" class="nav-link"><i class="fas fa-bolt"></i> Boost</a></li>
+                <li>
+                    <button id="themeToggle" class="btn btn-ghost btn-sm">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            
+            <!-- Quiz Page -->
+            <div class="quiz-container">
+                <!-- Quiz Header -->
+                <div class="quiz-header">
+                    <div class="quiz-progress-info">
+                        <div class="quiz-progress-text">
+                            Question <span id="currentQuestion">1</span> of <span id="totalQuizQuestions">10</span>
+                        </div>
+                        <div class="progress progress-lg">
+                            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="quiz-score">
+                        Score: <span class="accent" id="currentScore">0</span>/<span id="maxScore">0</span>
+                    </div>
+                </div>
+
+                <!-- Question Card -->
+                <div class="card card-lg question-card">
+                    <div class="question-header">
+                        <span class="question-number" id="questionNumber">Question 1</span>
+                        <span class="question-topic" id="questionTopic">Topic</span>
+                    </div>
+                    
+                    <h3 class="question-text" id="questionText">Question will appear here</h3>
+                    
+                    <div class="options-list" id="optionsList">
+                        <!-- Options will be inserted here -->
+                    </div>
+
+                    <div id="feedbackSection" class="feedback" style="display: none;">
+                        <div class="feedback-title" id="feedbackTitle"></div>
+                        <div id="feedbackText"></div>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div class="quiz-navigation">
+                    <button class="btn btn-outline" id="prevBtn" onclick="previousQuestion()" disabled>
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Previous</span>
+                    </button>
+                    <button class="btn btn-outline" id="skipBtn" onclick="skipQuestion()">
+                        <i class="fas fa-forward"></i>
+                        <span>Skip</span>
+                    </button>
+                    <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" style="display: none;">
+                        <span>Next</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button class="btn btn-primary" id="finishBtn" onclick="finishQuiz()" style="display: none;">
+                        <i class="fas fa-check"></i>
+                        <span>Finish Quiz</span>
+                    </button>
+                </div>
+
+                <button class="btn btn-ghost mt-3" onclick="quitQuiz()">
+                    <i class="fas fa-times"></i>
+                    <span>Quit Quiz</span>
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="/js/storage.js"></script>
+    <script src="/js/quiz-page.js"></script>
+</body>
+</html>

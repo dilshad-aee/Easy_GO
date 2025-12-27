@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Easy-Go - Professional exam preparation with 300+ questions">
+    <title>Easy-Go</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/design-system.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body data-theme="light">
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a href="/" class="navbar-brand">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Easy-Go</span>
+            </a>
+            <ul class="navbar-nav">
+                <li><a href="/" class="nav-link active" data-page="home"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/settings.html" class="nav-link" data-page="settings"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="/manage-files.html" class="nav-link"><i class="fas fa-folder"></i> My Files</a></li>
+                <li><a href="/analytics.html" class="nav-link" data-page="analytics"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                <li><a href="/boost.html" class="nav-link" data-page="boost"><i class="fas fa-bolt"></i> Boost</a></li>
+                <li>
+                    <button id="themeToggle" class="btn btn-ghost btn-sm">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            
+            <!-- Home Page -->
+            <div class="hero">
+                <h1 class="hero-title">Easy-Go</h1>
+                <p class="hero-subtitle">Your Smart Learning Companion - Master Any Topic with Custom Quizzes</p>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="card stat-card">
+                    <div class="stat-number" id="totalQuestions">0</div>
+                    <div class="stat-label">Total Questions</div>
+                </div>
+                <div class="card stat-card">
+                    <div class="stat-number" id="totalPacks">0</div>
+                    <div class="stat-label">Question Packs</div>
+                </div>
+                <div class="card stat-card">
+                    <div class="stat-number" id="quizzesTaken">0</div>
+                    <div class="stat-label">Quizzes Taken</div>
+                </div>
+                <div class="card stat-card">
+                    <div class="stat-number" id="avgScore">0%</div>
+                    <div class="stat-label">Average Score</div>
+                </div>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="cta-buttons">
+                <a href="/pack-selection.html" class="btn btn-primary btn-lg">
+                    <i class="fas fa-play"></i>
+                    <span>Start New Quiz</span>
+                </a>
+                <a href="/analytics.html" class="btn btn-secondary btn-lg">
+                    <i class="fas fa-chart-line"></i>
+                    <span>View Analytics</span>
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="/js/storage.js"></script>
+    <script src="/js/home.js"></script>
+</body>
+</html>

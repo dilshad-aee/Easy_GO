@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Easy-Go - Boost Your Skills with Targeted Practice">
+    <title>Boost - Easy-Go</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/design-system.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body data-theme="light">
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a href="/" class="navbar-brand">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Easy-Go</span>
+            </a>
+            <ul class="navbar-nav">
+                <li><a href="/" class="nav-link" data-page="home"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/settings.html" class="nav-link" data-page="settings"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="/manage-files.html" class="nav-link"><i class="fas fa-folder"></i> My Files</a></li>
+                <li><a href="/analytics.html" class="nav-link" data-page="analytics"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                <li><a href="/boost.html" class="nav-link active" data-page="boost"><i class="fas fa-bolt"></i> Boost</a></li>
+                <li>
+                    <button id="themeToggle" class="btn btn-ghost btn-sm">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            
+            <!-- Hero Section -->
+            <div class="hero">
+                <h1 class="hero-title">⚡ Boost Your Skills</h1>
+                <p class="hero-subtitle">Practice your weak areas and master every topic</p>
+            </div>
+
+            <!-- Stats Summary -->
+            <div class="stats-grid" id="boostStats">
+                <div class="card stat-card">
+                    <div class="stat-number" id="totalWeakQuestions">0</div>
+                    <div class="stat-label">Questions to Practice</div>
+                </div>
+                <div class="card stat-card">
+                    <div class="stat-number" id="uniquePacksCount">0</div>
+                    <div class="stat-label">Packs with Weak Questions</div>
+                </div>
+                <div class="card stat-card">
+                    <div class="stat-number" id="uniqueTopicsCount">0</div>
+                    <div class="stat-label">Topics Needing Work</div>
+                </div>
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" style="display: none; text-align: center; padding: 60px 20px;">
+                <div style="font-size: 64px; margin-bottom: 20px;">🎉</div>
+                <h2 style="margin-bottom: 10px;">Great Job!</h2>
+                <p class="text-secondary" style="max-width: 500px; margin: 0 auto 30px;">
+                    You have no weak questions! Keep practicing to maintain your perfect streak.
+                </p>
+                <a href="/pack-selection.html" class="btn btn-primary btn-lg">
+                    <i class="fas fa-play"></i>
+                    <span>Start New Quiz</span>
+                </a>
+            </div>
+
+            <!-- Pack Grid -->
+            <div id="packGridContainer" style="display: none;">
+                <h2 class="page-title" style="margin-top: 40px; margin-bottom: 20px;">
+                    <i class="fas fa-layer-group"></i> Your Question Packs
+                </h2>
+                <div class="pack-grid" id="packGrid">
+                    <!-- Dynamically populated -->
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="/js/storage.js"></script>
+    <script src="/js/boost.js"></script>
+</body>
+</html>

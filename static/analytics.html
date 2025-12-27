@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - Easy-Go</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/design-system.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body data-theme="light">
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a href="/" class="navbar-brand">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Easy-Go</span>
+            </a>
+            <ul class="navbar-nav">
+                <li><a href="/" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/settings.html" class="nav-link"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="/manage-files.html" class="nav-link"><i class="fas fa-folder"></i> My Files</a></li>
+                <li><a href="/analytics.html" class="nav-link active"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                <li><a href="/boost.html" class="nav-link"><i class="fas fa-bolt"></i> Boost</a></li>
+                <li>
+                    <button id="themeToggle" class="btn btn-ghost btn-sm">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <h1 class="page-title">Analytics & Performance</h1>
+
+            <!-- Stats Overview -->
+            <div class="analytics-grid">
+                <div class="card">
+                    <div class="stat-number" id="totalAttempts">0</div>
+                    <div class="stat-label">Total Quizzes</div>
+                </div>
+                <div class="card">
+                    <div class="stat-number" id="averageScore">0%</div>
+                    <div class="stat-label">Average Score</div>
+                </div>
+                <div class="card">
+                    <div class="stat-number" id="bestScore">0%</div>
+                    <div class="stat-label">Best Score</div>
+                </div>
+                <div class="card">
+                    <div class="stat-number" id="totalQuestions">0</div>
+                    <div class="stat-label">Questions Answered</div>
+                </div>
+            </div>
+
+            <!-- Performance Chart -->
+            <div class="card card-lg mt-4">
+                <h2 class="chart-title">
+                    <i class="fas fa-chart-line"></i> Performance Over Time
+                </h2>
+                <canvas id="performanceChart" height="80"></canvas>
+            </div>
+
+            <!-- Topic Performance -->
+            <div class="card card-lg mt-4">
+                <h2 class="chart-title">
+                    <i class="fas fa-chart-bar"></i> Performance by Topic
+                </h2>
+                <canvas id="topicChart" height="100"></canvas>
+            </div>
+
+            <!-- Recent Quizzes -->
+            <div class="card card-lg mt-4">
+                <h2 class="chart-title">
+                    <i class="fas fa-history"></i> Recent Quizzes
+                </h2>
+                <div id="recentQuizzes">
+                    <p class="text-secondary">No quiz history yet. Take a quiz to see your progress!</p>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="mt-4 flex gap-2">
+                <a href="/" class="btn btn-primary">
+                    <i class="fas fa-play"></i>
+                    <span>Start New Quiz</span>
+                </a>
+                <button onclick="clearHistory()" class="btn btn-outline">
+                    <i class="fas fa-trash"></i>
+                    <span>Clear History</span>
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="/js/storage.js"></script>
+    <script src="/js/analytics.js"></script>
+</body>
+</html>
