@@ -8,12 +8,30 @@ from flask import Flask, jsonify, send_from_directory, request
 import json
 import os
 import random
+from dotenv import load_dotenv
+from google import genai
+
+# Load environment variables
+load_dotenv()
 
 app = Flask(__name__, static_folder='static', static_url_path='')
 
 # where the question files live
 PACK_DIR = os.path.join(os.path.dirname(__file__), 'pack')
 JSON_PACK_DIR = os.path.join(os.path.dirname(__file__), 'json pack')
+
+# Initialize Gemini AI
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
+if GEMINI_API_KEY:
+    try:
+        gemini_client = genai.Client(api_key=GEMINI_API_KEY)
+        print("✅ Gemini AI initialized successfully")
+    except Exception as e:
+        print(f"⚠️ Error initializing Gemini: {e}")
+        gemini_client = None
+else:
+    print("⚠️ GEMINI_API_KEY not found in .env file")
+    gemini_client = None
 
 def load_questions_from_file(filepath):
     """Load questions from a JSON file"""
@@ -203,6 +221,71 @@ def get_available_files():
         return jsonify({
             'success': False,
             'error': str(e)
+        }), 500
+
+@app.route('/api/explain-topic', methods=['POST'])
+def explain_topic():
+    """Get AI explanation for a topic or question"""
+    try:
+        data = request.get_json()
+        
+        if not data or 'topic' not in data:
+            return jsonify({
+                'success': False,
+                'error': 'Topic is required'
+            }), 400
+        
+        topic = data.get('topic')
+        question_text = data.get('question', '')
+        
+        # Check if Gemini is available
+        if not gemini_client:
+            return jsonify({
+                'success': False,
+                'error': 'AI service is not configured. Please add GEMINI_API_KEY to .env file'
+            }), 503
+        
+        # Construct prompt for better explanations
+        if question_text:
+            prompt = f"""You are a helpful tutor. Explain the following quiz question and its topic in a clear, educational way.
+
+Question: {question_text}
+Topic: {topic}
+
+Provide:
+1. A brief explanation of the topic
+2. Key concepts related to this question
+3. A helpful tip or example to remember this
+
+Keep it concise (under 200 words) and easy to understand."""
+        else:
+            prompt = f"""You are a helpful tutor. Explain the topic '{topic}' in a clear, educational way.
+
+Provide:
+1. A brief overview of the topic
+2. Key concepts students should know
+3. A helpful tip or real-world example
+
+Keep it concise (under 200 words) and easy to understand."""
+        
+        # Generate explanation using google.genai SDK
+        response = gemini_client.models.generate_content(
+            model='gemini-2.5-flash',
+            contents=prompt
+        )
+        explanation = response.text
+        
+        return jsonify({
+            'success': True,
+            'explanation': explanation,
+            'topic': topic
+        })
+    
+    except Exception as e:
+        print(f"Error generating explanation: {e}")
+        return jsonify({
+            'success': False,
+            'error': f'Failed to generate explanation: {str(e)}'
         }), 500
 
 if __name__ == '__main__':

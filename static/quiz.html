@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/css/design-system.css">
     <link rel="stylesheet" href="/css/components.css">
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/ai-modal.css">
 </head>
 <body data-theme="light">
     
@@ -44,8 +45,10 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="main-content">
-        <div class="container">
+    <main class="main-content" id="mainContent">
+        <div class="quiz-layout">
+            <!-- Quiz Container (slides left when explanation opens) -->
+            <div class="quiz-section" id="quizSection">
             
             <!-- Quiz Page -->
             <div class="quiz-container">
@@ -68,7 +71,13 @@
                 <div class="card card-lg question-card">
                     <div class="question-header">
                         <span class="question-number" id="questionNumber">Question 1</span>
-                        <span class="question-topic" id="questionTopic">Topic</span>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="question-topic" id="questionTopic">Topic</span>
+                            <button class="btn btn-sm btn-outline" id="explainBtn" onclick="explainTopic()" title="Get AI explanation">
+                                <i class="fas fa-lightbulb"></i>
+                                <span>Explain</span>
+                            </button>
+                        </div>
                     </div>
                     
                     <h3 class="question-text" id="questionText">Question will appear here</h3>
@@ -109,6 +118,22 @@
                 </button>
             </div>
 
+            <!-- AI Explanation Panel (slides in from right) -->
+            <div class="explanation-panel" id="explanationPanel">
+                <div class="explanation-header">
+                    <h3><i class="fas fa-sparkles"></i> AI Explanation</h3>
+                    <button class="btn btn-ghost btn-sm" onclick="closeExplanationPanel()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="gradient-blob"></div>
+                <div class="explanation-content" id="explanationContent">
+                    <div class="loading-state">
+                        <div class="gemini-loader"></div>
+                        <span>Thinking...</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 

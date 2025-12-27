@@ -1,0 +1,338 @@
+/* ============================================
+   AI Explanation Side Panel with Gemini Animation
+   ============================================ */
+
+.quiz-layout {
+    display: flex;
+    width: 100%;
+    min-height: calc(100vh - var(--nav-height));
+    position: relative;
+    overflow: hidden;
+}
+
+/* Quiz Section - slides left when explanation opens */
+.quiz-section {
+    flex: 1;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: var(--space-4);
+    max-width: 100%;
+}
+
+.quiz-section.shifted {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+/* Explanation Panel - slides in from right */
+.explanation-panel {
+    position: fixed;
+    right: -50%;
+    top: var(--nav-height);
+    width: 50%;
+    height: calc(100vh - var(--nav-height));
+    background: var(--white);
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+    transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+[data-theme="dark"] .explanation-panel {
+    background: var(--bg-secondary);
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.explanation-panel.open {
+    right: 0;
+}
+
+/* Professional Subtle Gradient Background */
+@property --gradient-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.gradient-blob {
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 500px;
+    height: 500px;
+    background:
+        linear-gradient(var(--gradient-angle),
+            rgba(102, 126, 234, 0.15) 0%,
+            rgba(118, 75, 162, 0.12) 33%,
+            rgba(79, 172, 254, 0.15) 66%,
+            rgba(102, 126, 234, 0.15) 100%);
+    background-size: 300% 300%;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0;
+    animation: subtleFlow 15s ease-in-out infinite,
+        slowRotate 20s linear infinite;
+    pointer-events: none;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.explanation-panel.open .gradient-blob {
+    opacity: 1;
+}
+
+@keyframes subtleFlow {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        background-position: 100% 50%;
+        transform: translate(-20px, 20px) scale(1.05);
+    }
+}
+
+@keyframes slowRotate {
+    0% {
+        --gradient-angle: 0deg;
+    }
+
+    100% {
+        --gradient-angle: 360deg;
+    }
+}
+
+/* Explanation Header */
+.explanation-header {
+    padding: var(--space-4);
+    border-bottom: var(--border-width) solid var(--border-light);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--white);
+    position: relative;
+    z-index: 2;
+}
+
+[data-theme="dark"] .explanation-header {
+    background: var(--bg-secondary);
+}
+
+.explanation-header h3 {
+    margin: 0;
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.explanation-header h3 i {
+    color: var(--primary);
+}
+
+/* Explanation Content */
+.explanation-content {
+    flex: 1;
+    padding: var(--space-4);
+    overflow-y: auto;
+    position: relative;
+    z-index: 2;
+}
+
+/* Professional Loading State */
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+    padding: var(--space-6);
+}
+
+.loading-state p {
+    font-size: 16px;
+    font-weight: var(--font-medium);
+    color: var(--text-secondary);
+    animation: subtleFade 2s ease-in-out infinite;
+}
+
+@keyframes subtleFade {
+
+    0%,
+    100% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Wave Animation Loader with Dynamic Gradient */
+.gemini-loader {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #667eea 0%, #f093fb 20%, #ff6b9d 40%, #feca57 60%, #48dbfb 80%, #667eea 100%);
+    background-size: 300% 300%;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 30px 4px rgba(102, 126, 234, 0.4) inset,
+        0 5px 12px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    animation: gradientFlow 8s ease-in-out infinite;
+}
+
+@keyframes gradientFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.gemini-loader:before,
+.gemini-loader:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 45%;
+    top: -40%;
+    background-color: #fff;
+    animation: wave 5s linear infinite;
+}
+
+.gemini-loader:before {
+    border-radius: 30%;
+    background: rgba(255, 255, 255, 0.4);
+    animation: wave 5s linear infinite;
+}
+
+@keyframes wave {
+    0% {
+        transform: rotate(0);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* AI Explanation Styling */
+.ai-explanation {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ai-topic-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: 8px var(--space-3);
+    background: var(--primary);
+    color: white;
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    margin-bottom: var(--space-3);
+}
+
+.explanation-text {
+    line-height: 1.8;
+    font-size: 16px;
+    color: var(--text-primary);
+    letter-spacing: 0.01em;
+    margin-bottom: var(--space-4);
+}
+
+.explanation-text p {
+    margin-bottom: var(--space-3);
+}
+
+.explanation-text strong {
+    color: var(--primary);
+    font-weight: var(--font-semibold);
+}
+
+.ai-footer {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+    padding-top: var(--space-3);
+    border-top: var(--border-width) solid var(--border-light);
+    font-size: var(--text-sm);
+    color: var(--text-tertiary);
+}
+
+.ai-footer i {
+    color: var(--primary);
+}
+
+/* Error State */
+.error-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-4);
+    text-align: center;
+    color: var(--error);
+}
+
+.error-message i {
+    font-size: var(--text-3xl);
+}
+
+.error-message p {
+    margin: 0;
+    color: var(--text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .quiz-section.shifted {
+        flex: 0 0 40%;
+        max-width: 40%;
+    }
+
+    .explanation-panel {
+        width: 60%;
+        right: -60%;
+    }
+}
+
+@media (max-width: 768px) {
+    .quiz-section.shifted {
+        flex: 0 0 100%;
+        max-width: 100%;
+        transform: translateX(-100%);
+    }
+
+    .explanation-panel {
+        width: 100%;
+        right: -100%;
+    }
+}

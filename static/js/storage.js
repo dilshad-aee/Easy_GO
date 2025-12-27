@@ -12,7 +12,8 @@ const Storage = {
         QUIZ_HISTORY: 'quizHistory',
         THEME: 'theme',
         ACHIEVEMENTS: 'achievements',
-        WRONG_ANSWERS: 'wrongAnswers'  // added for boost feature
+        WRONG_ANSWERS: 'wrongAnswers',  // added for boost feature
+        AI_EXPLANATIONS: 'aiExplanations'  // cache for AI explanations
     },
 
     // Get quiz history
@@ -339,6 +340,39 @@ const Storage = {
             return true;
         } catch (err) {
             console.error('Error clearing wrong answers by pack:', err);
+            return false;
+        }
+    },
+
+    // ========== AI EXPLANATIONS CACHE ==========
+    // Cache AI explanations to save API calls
+
+    getExplanationCache() {
+        try {
+            const cache = localStorage.getItem(this.KEYS.AI_EXPLANATIONS);
+            return cache ? JSON.parse(cache) : {};
+        } catch (err) {
+            console.error('Error reading explanation cache:', err);
+            return {};
+        }
+    },
+
+    getCachedExplanation(topic) {
+        const cache = this.getExplanationCache();
+        return cache[topic] || null;
+    },
+
+    saveExplanation(topic, explanation) {
+        try {
+            const cache = this.getExplanationCache();
+            cache[topic] = {
+                explanation,
+                timestamp: new Date().toISOString()
+            };
+            localStorage.setItem(this.KEYS.AI_EXPLANATIONS, JSON.stringify(cache));
+            return true;
+        } catch (err) {
+            console.error('Error saving explanation:', err);
             return false;
         }
     }

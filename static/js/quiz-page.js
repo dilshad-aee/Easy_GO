@@ -486,6 +486,128 @@ function updateThemeUI(theme) {
     }
 }
 
+// AI Explanation Functions
+async function explainTopic() {
+    const currentQuestion = Quiz.questions[Quiz.currentQuestionIndex];
+    if (!currentQuestion) {
+        alert('No question loaded');
+        return;
+    }
+
+    const topic = currentQuestion.topic || 'General';
+    const questionText = currentQuestion.question;
+
+    // Get elements - PANEL not modal
+    const panel = document.getElementById('explanationPanel');
+    const quizSection = document.getElementById('quizSection');
+    const contentDiv = document.getElementById('explanationContent');
+
+    if (!panel || !contentDiv) {
+        alert('Panel not found');
+        return;
+    }
+
+    // Open panel with animation
+    panel.classList.add('open');
+    quizSection.classList.add('shifted');
+
+    contentDiv.innerHTML = `
+        <div class="loading-state">
+            <div class="gemini-loader"></div>
+            <span>Thinking...</span>
+        </div>
+    `;
+
+    // Check cache first
+    const cached = Storage.getCachedExplanation(topic);
+    if (cached && cached.explanation) {
+        setTimeout(() => {
+            contentDiv.innerHTML = `
+                <div class="ai-explanation">
+                    <div class="ai-topic-badge">
+                        <i class="fas fa-bookmark"></i> ${topic}
+                    </div>
+                    ${formatExplanation(cached.explanation)}
+                    <div class="ai-footer">
+                        <i class="fas fa-bolt"></i> From cache
+                    </div>
+                </div>
+            `;
+        }, 500);
+        return;
+    }
+
+    // Fetch from AI
+    try {
+        const response = await fetch('/api/explain-topic', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                topic: topic,
+                question: questionText
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            // Save to cache
+            Storage.saveExplanation(topic, data.explanation);
+
+            contentDiv.innerHTML = `
+                <div class="ai-explanation">
+                    <div class="ai-topic-badge">
+                        <i class="fas fa-sparkles"></i> ${data.topic}
+                    </div>
+                    ${formatExplanation(data.explanation)}
+                    <div class="ai-footer">
+                        <i class="fas fa-robot"></i> Powered by Gemini AI
+                    </div>
+                </div>
+            `;
+        } else {
+            contentDiv.innerHTML = `
+                <div class="error-message">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>${data.error || 'Failed to get explanation'}</p>
+                </div>
+            `;
+        }
+    } catch (error) {
+        console.error('Error fetching explanation:', error);
+        contentDiv.innerHTML = `
+            <div class="error-message">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p>Failed to connect to AI service. Please try again.</p>
+            </div>
+        `;
+    }
+}
+
+function formatExplanation(text) {
+    // Convert numbered lists and make text more readable
+    let formatted = text.replace(/\n/g, '<br>');
+    formatted = formatted.replace(/(\d+\.\s)/g, '<br><strong>$1</strong>');
+    formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    return `<div class="explanation-text">${formatted}</div>`;
+}
+
+
+function closeExplanationPanel() {
+    const panel = document.getElementById('explanationPanel');
+    const quizSection = document.getElementById('quizSection');
+
+    if (panel) {
+        panel.classList.remove('open');
+    }
+    if (quizSection) {
+        quizSection.classList.remove('shifted');
+    }
+}
+
+
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
