@@ -46,5 +46,4 @@ Thumbs.db
 *.bak
 *.orig
 
-# Brain artifacts (optional - keep or remove based on preference)
-.gemini/
+
